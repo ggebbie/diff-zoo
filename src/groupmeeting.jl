@@ -199,12 +199,11 @@ include("utils.jl");
 # The Wengert List
 # ----------------
 #
-# The output of `printstructure` above is known as a "Wengert List", an explicit
+# The "Wengert List" is an explicit
 # list of instructions that's a bit like writing assembly code. Really, Wengert
 # lists are nothing more or less than mathematical expressions written out
 # verbosely, and we can easily convert to and from equivalent `Expr` objects.
 
-include("utils.jl");
 #-
 y = :(3x^2 + (2x + 1))
 #-
@@ -219,7 +218,7 @@ wy.instructions
 
 
 # We can differentiate things by creating a new Wengert list which
-# contains parts of the original expression.
+# contains parts of the original expression. Let's try a nonlinear expression.
 
 y = Wengert(:(5sin(log(x))))
 derive(y, :x)
@@ -240,9 +239,7 @@ Expr(dy)
 #
 # Almost all of the subtlety in differentiating programs comes from a
 # mathematically trivial question: in what order do we evaluate the statements
-# of the Wengert list? We have discussed the
-# [forward/reverse](./backandforth.ipynb) distinction, but even once that choice
-# is made, we have plenty of flexibility, and those choices can affect efficiency.
+# of the Wengert list? These choices can affect efficiency.
 #
 # For example, imagine if we straightforwardly evaluate `y` followed by `dy`. If
 # we only cared about the final output of `y`, this would be no problem at all,
